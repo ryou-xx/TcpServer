@@ -58,7 +58,7 @@ private:
     Timestamp pollReturnTime_;  // Poller返回发生事件的Channels的时间点
     std::unique_ptr<Poller> poller_;    // 一个EventLoop对应一个Poller
 
-    int wakeupFd_;              // 当mainLoop获取新用户的Channel是需要通过轮询算法选择一个subLoop，通过该成员唤醒subLoop处理Channel
+    int wakeupFd_;              // 用于唤醒阻塞在epoll_wait中的Loop线程，因为线程会监听wakeupChannel,在wakeupFd_中写入相当于人为制造了一个写入事件
     std::unique_ptr<Channel> wakeupChannel_;
 
     ChannelList activecChannels_;// Poller检测到的当前有事件发生的所有Channel列表
