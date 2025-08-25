@@ -3,7 +3,7 @@
 #include <cstring>
 #include "EpollPoller.hpp"
 #include "Channel.hpp"
-#include "../log_system/logs_code/MyLog.hpp"
+#include "MyLog.hpp"
 
 const int NEW = -1;     // Channel还未被添加到Poller中
 const int ADDED = 1;    
