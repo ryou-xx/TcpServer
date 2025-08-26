@@ -55,7 +55,7 @@ public:
     void disableReading() { events_ &= ~readEvent; update();}
     void enableWriting() { events_ |= writeEvent; update();}
     void disableWriting() { events_ &= ~writeEvent; update();}
-    void disbaleAll() { events_ &= noneEvent; update;}
+    void disbaleAll() { events_ &= noneEvent; update();}
 
 private:
     void update(); // 更新fd在epollfd上的状态
