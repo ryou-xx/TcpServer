@@ -42,6 +42,12 @@ Timestamp EpollPoller::poll(int timeoutMs, ChannelList* activeChannels)
         if (numEvents == events_.size())
             events_.resize(events_.size() * 2);
     }
+    else if (numEvents == 0)
+    {
+#ifdef DEBUG_LOG
+        mylog::GetLogger("asynclogger")->Debug("epoll_wait timeout");
+#endif
+    }
     else
     {
         if (saveErrno != EINTR)

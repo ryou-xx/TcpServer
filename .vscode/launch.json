@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             //"program": "${workspaceFolder}/server/gdb_test",
-            "program": "${workspaceFolder}/log_system/logs_code/gdb_test",
+            "program": "${workspaceFolder}/src/test",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/src",

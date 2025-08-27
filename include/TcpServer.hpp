@@ -62,7 +62,7 @@ private:
     MessageCallback messageCallback_;               //数据处理回调函数
     WriteCompleteCallback writeCompleteCallback_;   //数据发送完成回调函数
 
-    ThreadInitCallback threadInitCallback_;         //现成初始化回调函数
+    ThreadInitCallback threadInitCallback_;         //线程初始化回调函数
     int numThreads_;                                //线程池线程数量
     std::atomic_int started_;
     int nextConnId_;

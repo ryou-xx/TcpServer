@@ -46,7 +46,7 @@ TcpServer::~TcpServer()
 
 void TcpServer::setThreadNum(int numThreads)
 {
-    int numThreads_ = numThreads_;
+    int numThreads_ = numThreads;
     threadPool_->setThreadNum(numThreads_);
 }
 

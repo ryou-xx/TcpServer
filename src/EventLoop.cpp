@@ -37,7 +37,7 @@ EventLoop::EventLoop()
 #ifdef DEBUG_FLAG
     mylog::GetLogger("asynclogger")->Debug("EventLoop created %p in thread %d", this, threadId_);
 #endif
-    if (t_loopInThisThread == nullptr)
+    if (t_loopInThisThread != nullptr)
     {
         mylog::GetLogger("asynclogger")->Fatal("another eventloop %p exists in this thread %d", t_loopInThisThread, threadId_);
     }
@@ -52,9 +52,11 @@ EventLoop::EventLoop()
 
 EventLoop::~EventLoop()
 {
+    mylog::GetLogger("asynclogger")->Info("EventLoop %p of thread %d destructs in thread", this, threadId_);
     wakeupChannel_->disbaleAll();
     wakeupChannel_->remove();
     close(wakeupFd_);
+    t_loopInThisThread = nullptr;
 }
 
 // 开启事件循环
@@ -134,7 +136,7 @@ void EventLoop::queueInLoop(Functor cb)
 void EventLoop::handleRead()
 {
     uint64_t one = 1;
-    ssize_t n = write(wakeupFd_, &one, sizeof(one));
+    ssize_t n = read(wakeupFd_, &one, sizeof(one));
     if (n != sizeof(one))
         mylog::GetLogger("asynclogger")->Error("wakeup write error");
 }

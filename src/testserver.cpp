@@ -74,5 +74,6 @@ int main() {
     EchoServer server(&loop, addr, "EchoServer");
     server.start();
     loop.loop();
+    delete(tp);
     return 0;
 }
