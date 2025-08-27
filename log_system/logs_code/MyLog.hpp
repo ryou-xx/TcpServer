@@ -2,15 +2,12 @@
 #include "Manager.hpp"
 
 namespace mylog{
-AsyncLogger::ptr GetLogger(const std::string &name)
-{
-    return LoggerManager::GetInstance().GetLogger(name);
-}
+AsyncLogger::ptr GetLogger(const std::string &name);
 
-AsyncLogger::ptr DefaultLogger()
-{
-    return LoggerManager::GetInstance().DefaultLogger();
-}
+AsyncLogger::ptr DefaultLogger();
+
+// 停止所有日志器
+void StopAllLoggers();
 
 // 简化函数使用，在使用时需要指定日志器
 #define Debug(fmt, ...) Debug(__FILE__, __LINE__, fmt, ##__VA_ARGS__)
@@ -26,9 +23,4 @@ AsyncLogger::ptr DefaultLogger()
 #define LOGERRORDEFAULT(fmt, ...) mylog::DefaultLogger()->Error(fmt, ##__VA_ARGS__)
 #define LOGFATALDEFAULT(fmt, ...) mylog::DefaultLogger()->Fatal(fmt, ##__VA_ARGS__)
 
-// 停止所有日志器
-void StopAllLoggers()
-{
-    LoggerManager::GetInstance().StopAll();
-}
 }

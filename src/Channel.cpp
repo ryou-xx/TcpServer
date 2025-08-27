@@ -1,7 +1,7 @@
 #include <sys/epoll.h>
 #include "Channel.hpp"
 #include "EventLoop.hpp"
-#include "./log_system/logs_code/MyLog.hpp"
+#include "MyLog.hpp"
 
 const int Channel::noneEvent = 0;                  // 无事件
 const int Channel::readEvent = EPOLLIN | EPOLLPRI; // 读事件和紧急数据

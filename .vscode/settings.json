@@ -72,5 +72,6 @@
         "cassert": "cpp",
         "queue": "cpp"
     },
-    "search.followSymlinks": false
+    "search.followSymlinks": false,
+    "cmake.sourceDirectory": "/home/admin/demo/muduo/src"
 }

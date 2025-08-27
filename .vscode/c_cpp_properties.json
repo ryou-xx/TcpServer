@@ -5,6 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/include",
                 "${workspaceFolder}/log_system/logs_code",
+                "${workspaceFolder}/log_system/logs_code/backlog",
                 "${workspaceFolder}/**"
             ],
             "defines": [],

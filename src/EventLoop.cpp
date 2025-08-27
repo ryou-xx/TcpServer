@@ -125,7 +125,7 @@ void EventLoop::queueInLoop(Functor cb)
 
     // 如果Loop所在的线程正在执行其他回调函数，此时为了避免执行完当前回调后再一次循环进入epoll_wait的阻塞等待状态，
     // 导致回调函数无法及时执行，需要唤醒线程进入下一次循环后立即执行回调
-    if (!isInLoopThread || callingPendingFuntors_)
+    if (!isInLoopThread() || callingPendingFuntors_)
     {
         wakeup();
     }
@@ -137,6 +137,16 @@ void EventLoop::handleRead()
     ssize_t n = write(wakeupFd_, &one, sizeof(one));
     if (n != sizeof(one))
         mylog::GetLogger("asynclogger")->Error("wakeup write error");
+}
+
+void EventLoop::wakeup()
+{
+    uint64_t one = 1;
+    ssize_t n = write(wakeupFd_, &one, sizeof(one));
+    if (n != sizeof(one))
+    {
+        mylog::GetLogger("asynclogger")->Error("EventLoop::wakeup() writes %lu bytes instead of 8\n", n);
+    }
 }
 
 void EventLoop::updateChannel(Channel* channel)

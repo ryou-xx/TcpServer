@@ -12,7 +12,7 @@
             "program": "${workspaceFolder}/log_system/logs_code/gdb_test",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/server",
+            "cwd": "${workspaceFolder}/src",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",

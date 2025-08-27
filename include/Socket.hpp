@@ -11,8 +11,8 @@ public:
 
     int fd() const {return sockfd_;}
     void bindAddress(const InetAddress &localAddr);
-    void Listen();
-    int Accept(InetAddress* peerAddr);
+    void Listen();  // 调用listen
+    int Accept(InetAddress* peerAddr);  // 调用accept并返回客户端地址信息
 
     void shutdownWrite();
 

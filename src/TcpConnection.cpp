@@ -50,6 +50,27 @@ TcpConnection::TcpConnection(EventLoop *loop,
     socket_->setKeepAlive(true);
 }
 
+TcpConnection::~TcpConnection()
+{
+    mylog::GetLogger("asynclogger")->Info("TcpConnection::dtor[%s] at fd=%d state=%d\n", name_.c_str(), channel_->fd(), (int)state_);
+}
+
+void TcpConnection::send(const std::string &buf)
+{
+    if (state_ == kConnected)
+    {
+        if (loop_->isInLoopThread())
+        {
+            sendInLoop(buf.c_str(), buf.size());
+        }
+        else
+        {
+            loop_->queueInLoop(
+                std::bind(&TcpConnection::sendInLoop, this, buf.c_str(), buf.size()));
+        }
+    }
+}
+
 // 发送数据
 void TcpConnection::sendInLoop(const void* data, size_t len)
 {
@@ -118,6 +139,14 @@ void TcpConnection::shutdown()
         setState(kDisconnected);
         loop_->runInLoop(
             std::bind(&TcpConnection::shutdownInLoop, this));
+    }
+}
+
+void TcpConnection::shutdownInLoop()
+{
+    if (!channel_->isWriting()) // 没有待发送数据
+    {
+        socket_->shutdownWrite();
     }
 }
 

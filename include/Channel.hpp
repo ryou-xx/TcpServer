@@ -17,7 +17,7 @@ public:
     using ReadEventCallback = std::function<void(Timestamp)>; // 读事件回调函数
 
     Channel(EventLoop *loop, int fd);
-    ~Channel();
+    ~Channel(){};
 
     // fd收到Poller的通知后调用该函数进行相应处理，在EventLoop::loop()中被调用
     void handleEvent(Timestamp receiveTime);
